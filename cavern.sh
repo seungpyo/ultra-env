@@ -5,3 +5,5 @@ if [ ! -e "$flag_file" ]; then
     echo "Command executed"
     touch "$flag_file"
 fi
+# cavern.sh should end with a newline character
+# since oh-my-zsh's zshrc file is appended after it.
