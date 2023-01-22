@@ -34,8 +34,8 @@ ENV GOOGLE_APPLICATION_CREDENTIALS /home/${USERNAME}/.config/gcloud/application_
 RUN yes | sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 RUN mv ~/.zshrc ~/.zshrc_bkup
 
-# RUN curl -o cavern.sh https://raw.githubusercontent.com/seungpyo/ultra-env/master/cavern.sh
-COPY cavern.sh cavern.sh
+RUN curl -o cavern.sh https://raw.githubusercontent.com/seungpyo/ultra-env/master/cavern.sh
+# COPY cavern.sh cavern.sh
 RUN cat cavern.sh | tee -a /home/${USERNAME}/.zshrc && \
 rm -rf cavern.sh && \
 cat ~/.zshrc_bkup | tee -a ~/.zshrc && \
