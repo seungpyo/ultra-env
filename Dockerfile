@@ -31,19 +31,14 @@ pip install google-cloud-bigquery pandas db-dtypes
 ENV PATH ${PATH}:/home/${USERNAME}/google-cloud-sdk/bin
 ENV GOOGLE_APPLICATION_CREDENTIALS /home/${USERNAME}/.config/gcloud/application_default_credentials.json
 
-# Content of cavern.sh
+RUN yes | sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN mv ~/.zshrc ~/.zshrc_bkup
 
-# flag_file=".gcloud.lock"
-# if [ ! -e "$flag_file" ]; then
-#     gcloud init
-#     gcloud auth application-default login
-#     echo "Command executed"
-#     touch "$flag_file"
-# fi
-
-COPY cavern.sh /home/${USERNAME}/cavern.sh
-RUN cat /home/${USERNAME}/cavern.sh | tee -a /home/${USERNAME}/.zshrc && \
-rm -rf /home/${USERNAME}/cavern.sh && \
-yes | sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# RUN curl -o cavern.sh https://raw.githubusercontent.com/seungpyo/ultra-env/master/cavern.sh
+COPY cavern.sh cavern.sh
+RUN cat cavern.sh | tee -a /home/${USERNAME}/.zshrc && \
+rm -rf cavern.sh && \
+cat ~/.zshrc_bkup | tee -a ~/.zshrc && \
+rm -rf ~/.zshrc_bkup
 
 ENTRYPOINT [ "/bin/zsh" ]
